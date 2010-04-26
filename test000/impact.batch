@@ -1,0 +1,17 @@
+setPreference -pref AutoSignature:FALSE
+setPreference -pref KeepSVF:FALSE
+setPreference -pref ConcurrentMode:FALSE
+setPreference -pref UseHighz:FALSE
+setPreference -pref svfUseTime:FALSE
+setPreference -pref SpiByteSwap:AUTO_CORRECTION
+setMode -bs
+setMode -bs
+setMode -bs
+setMode -bs
+setCable -port xsvf -file test.xsvf
+addDevice -p 1 -file atmega162.bsd
+addDevice -p 2 -file test.jed
+program -p 2
+deleteDevice -position 1
+deleteDevice -position 1
+quit

@@ -1,0 +1,11 @@
+Scratchpad for VHDL experiments.
+
+To build these projects you will need Xilinx ISE WebPack, which you can get from here:
+
+    http://www.xilinx.com/support/download
+
+Load the project into the ISE GUI, then click "Implement Design" to build it. Once
+you've built the project for the first time, you can then rebuild the project using
+the Makefile. In addition to reimplementing the design from the VHDL and constraint
+files, the Makefile will generate an XSVF programming file ready for upload to a
+real device.

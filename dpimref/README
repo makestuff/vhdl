@@ -1,0 +1,8 @@
+Clone of Digilent's dpimref.vhd. Cleaned up design so no special FSM tuning is
+necessary. Build it, load it into your Nexys2 board using Digilent Adept, then
+go to "Register I/O". In the first column enter register addresses 0x00, 0x01,
+0x02 and 0x03. Then in the next (non-grey) column enter some data, e.g 0x23,
+0x42, 0xFE, 0xCA. Now click "Write All". You can see that the value you wrote
+to register 0x03 is now displayed on the LEDs. Now click "Read All". The values
+are all read back, except register 0x03, which when read returns the state of
+the switches.

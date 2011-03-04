@@ -77,7 +77,7 @@ end component;
 			c_has_rd_data_count => 0,
 			c_din_width => 8,
 			c_has_wr_data_count => 0,
-			c_full_flags_rst_val => 1,
+			c_full_flags_rst_val => 0,
 			c_implementation_type => 0,
 			c_family => "spartan3",
 			c_use_embedded_reg => 0,

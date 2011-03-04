@@ -32,7 +32,10 @@ entity TopLevel is
 		eppAddrStrobe   : in    std_logic;
 		eppDataStrobe   : in    std_logic;
 		eppReadNotWrite : in    std_logic;
-		eppAck          : out   std_logic
+		eppAck          : out   std_logic;
+		
+		led             : out   std_logic_vector(7 downto 0);
+		sw              : in    std_logic_vector(7 downto 0)
 	);
 end TopLevel;
 
@@ -73,6 +76,7 @@ begin
 
 	-- Drive the outputs
 	eppAck <= iThisAck;
+	led <= iThisR3;
 
 	-- EPP operation
 	eppDataBus <=
@@ -84,7 +88,7 @@ begin
 			iThisR0 when "00",
 			iThisR1 when "01",
 			iThisR2 when "10",
-			iThisR3 when others;
+			sw      when others;
 
 	-- Infer registers
 	process(clk, reset)

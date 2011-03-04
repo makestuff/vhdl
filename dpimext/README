@@ -1,0 +1,6 @@
+Exactly the same as the dpimref project, except that now the values written to
+register 0x03 are now displayed on the eight LEDs on the Nexys2 board, and when
+register 0x03 is read, it returns the state of the eight switches on the Nexys2
+board.
+
+See http://www.makestuff.eu/wordpress/?p=1345

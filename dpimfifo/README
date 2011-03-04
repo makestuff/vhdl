@@ -1,0 +1,5 @@
+Exactly the same as the dpimref project, except that now the values written to
+register 0x03 are put into a 1024-byte FIFO, and reads from register 0x03 take
+values from the FIFO.
+
+See http://www.makestuff.eu/wordpress/?p=1334

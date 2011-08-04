@@ -1,0 +1,13 @@
+Demonstrate the VHDL package abstraction.
+
+Packages allow you to wrap up bits of related logic and type definitions so they can be easily
+re-used. My motivation for doing this was that I wanted a way to test a block of logic that has a
+port of user-defined type (i.e an enumeration). A VHDL package seems to be the best way to wrap up a
+logic block and its associated enumerated types.
+
+Building a Digilent S3BOARD .bit file: cd package; make
+(btn3 = op_in, btn2 = a_in, btn1 = b_in, led0 = x_out)
+
+Simulating: cd gate; make; make waves
+
+Chris McClelland 2011-08-04

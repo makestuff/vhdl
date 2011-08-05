@@ -22,7 +22,7 @@ use work.memctrl_pkg.all;
 
 entity memctrl is
 	port(
-		op_in : in Operation;
+		mcOp_in : in MCOpType;
 		a_in  : in std_logic;
 		b_in  : in std_logic;
 		x_out : out std_logic
@@ -32,6 +32,7 @@ end entity;
 architecture behavioural of memctrl is
 begin
 	x_out <=
-		a_in or b_in when op_in = OP_OR else
-		a_in and b_in when op_in = OP_AND;
+		a_in and b_in when mcOp_in = MC_READ else
+		a_in xor b_in when mcOp_in = MC_WRITE else
+		a_in or b_in;
 end architecture;

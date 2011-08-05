@@ -98,7 +98,9 @@
 #NET "ifclk_in" TNM_NET = "ifclk_in";
 #TIMESPEC "TS_clk" = PERIOD "ifclk_in" 20 ns HIGH 50 %;
 
-NET "op_in" LOC = "L14"; # btn(3)
-NET "a_in" LOC = "L13"; # btn(2)
-NET "b_in" LOC = "M14"; # btn(1)
-NET "x_out" LOC = "K12"; # led(0)
+NET "mcOp_in<0>" LOC = "L14"; # btn(3)
+NET "mcOp_in<1>" LOC = "L13"; # btn(2)
+NET "a_in" LOC = "M14";       # btn(1)
+NET "b_in" LOC = "M13";       # btn(0)
+
+NET "x_out" LOC = "K12";      # led(0)

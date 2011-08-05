@@ -22,7 +22,7 @@ use work.memctrl_pkg.all;
 
 entity toplevel is
 	port(
-		op_in : in std_logic;
+		mcOp_in : in std_logic_vector(1 downto 0);
 		a_in  : in std_logic;
 		b_in  : in std_logic;
 		x_out : out std_logic
@@ -30,16 +30,17 @@ entity toplevel is
 end entity;
  
 architecture behavioural of toplevel is
-	signal op : Operation;
+	signal mcOp : MCOpType;
 begin
 	u1: memctrl
 		port map(
-			op_in => op,
+			mcOp_in => mcOp,
 			a_in => a_in,
 			b_in => b_in,
 			x_out => x_out
 		);
-	op <=
-		OP_AND when op_in = '1' else
-		OP_OR;
+	mcOp <=
+		MC_READ when mcOp_in = "01" else
+		MC_WRITE when mcOp_in = "10" else
+		MC_NOP;
 end architecture;

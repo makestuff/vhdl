@@ -27,17 +27,17 @@ end memctrl_tb;
 
 architecture behavioural of memctrl_tb is
 
-	signal op : Operation;
-	signal a  : std_logic;
-	signal b  : std_logic;
-	signal x  : std_logic;
+	signal mcOp : MCOpType;
+	signal a    : std_logic;
+	signal b    : std_logic;
+	signal x    : std_logic;
 
 begin
 
 	-- Instantiate the unit under test
 	uut: memctrl
 		port map(
-			op_in => op,
+			mcOp_in => mcOp,
 			a_in => a,
 			b_in => b,
 			x_out => x
@@ -46,7 +46,7 @@ begin
 	-- Drive the unit under test. Read stimulus from stimulus.txt and write results to results.txt
 	process
 		variable inLine, outLine : line;
-		variable inData          : std_logic_vector(2 downto 0);
+		variable inData          : std_logic_vector(3 downto 0);
 		variable outData         : std_logic;
 		file inFile              : text open read_mode is "stimulus.txt";
 		file outFile             : text open write_mode is "results.txt";
@@ -55,13 +55,16 @@ begin
 			exit when endfile(inFile);
 			readline(inFile, inLine);
 			read(inLine, inData);
-			if ( inData(2) = '1' ) then
-				op <= OP_AND;
-			else
-				op <= OP_OR;
-			end if;
-			a <= inData(1);
-			b <= inData(0);
+			case inData(1 downto 0) is
+				when "01" =>
+					mcOp <= MC_READ;
+				when "10" =>
+					mcOp <= MC_WRITE;
+				when others =>
+					mcOp <= MC_NOP;
+			end case;
+			a <= inData(2);
+			b <= inData(3);
 			wait for 10 ns;
 			outData := x;
 			write(outLine, outData);

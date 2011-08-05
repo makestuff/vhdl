@@ -20,13 +20,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package memctrl_pkg is
-	type Operation is (
-		OP_AND,
-		OP_OR
+	type MCOpType is (
+		MC_NOP,
+		MC_READ,
+		MC_WRITE
 	);
 	component memctrl is
 		port(
-			op_in : in Operation;
+			mcOp_in : in MCOpType;
 			a_in  : in std_logic;
 			b_in  : in std_logic;
 			x_out : out std_logic

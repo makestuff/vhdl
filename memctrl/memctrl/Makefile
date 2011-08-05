@@ -16,7 +16,7 @@
 #
 MODULE := memctrl
 SIGNALS := \
-	op_in  \
+	mcOp_in  \
 	a_in   \
 	b_in   \
 	x_out

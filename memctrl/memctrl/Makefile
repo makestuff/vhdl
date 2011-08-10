@@ -16,11 +16,25 @@
 #
 MODULE := memctrl
 SIGNALS := \
-	mcOp_in  \
-	a_in   \
-	b_in   \
-	x_out
+	uut.mcRst_in \
+	ramClk \
+	- \
+	uut.mcOp_in \
+	uut.mcAddr_in \
+	uut.mcData_in \
+	uut.mcData_out \
+	uut.mcBusy_out \
+	- \
+	ramCmd \
+	uut.ramAddr_out \
+	uut.ramData_io \
+	uut.ramBank_out \
+	uut.ramLDQM_out \
+	uut.ramUDQM_out \
+	uut.state \
+	uut.initCount
 VHDLS := \
+	hexutil.vhdl \
 	${MODULE}_pkg.vhdl \
 	${MODULE}.vhdl
 
@@ -46,7 +60,7 @@ synthesis: ${VHDLS}
 	grep WARNINGS synthesis/* | grep -Eq "XST_NUMBER_OF_WARNINGS\" value=\"0\""
 	touch $@
 
-simulation: ${VHDLS} ${MODULE}_tb.vhdl
+simulation: ${VHDLS} ${MODULE}_tb.vhdl stimulus.txt
 	mkdir -p simulation
 	ghdl -i --ieee=synopsys --std=93c --vital-checks --warn-binding --warn-reserved --warn-library --warn-vital-generic --warn-delayed-checks --warn-body --warn-specs --warn-unused --warn-error --workdir=simulation --work=work *.vhdl
 	ghdl -m --ieee=synopsys --std=93c --vital-checks --warn-binding --warn-reserved --warn-library --warn-vital-generic --warn-delayed-checks --warn-body --warn-specs --warn-unused --warn-error --workdir=simulation --work=work ${MODULE}_tb
@@ -55,12 +69,16 @@ simulation: ${VHDLS} ${MODULE}_tb.vhdl
 	touch $@
 
 waves: simulation
-	echo "set signalList [list]" > simulation/startup.tcl
-	for i in ${SIGNALS}; do echo "lappend signalList \"uut.$$i\"" >> simulation/startup.tcl; done
-	echo "set num_added [ gtkwave::addSignalsFromList \$$signalList ]" >> simulation/startup.tcl
-	echo "gtkwave::setZoomFactor -26" >> simulation/startup.tcl
-	echo "gtkwave::setMarker 55ns" >> simulation/startup.tcl
-	gtkwave -T simulation/startup.tcl simulation/${MODULE}_tb.ghw
+	@for i in ${SIGNALS}; do if [ $$i = "-" ]; then echo "gtkwave::/Edit/Insert_Blank"; else echo "gtkwave::addSignalsFromList $$i"; fi; done > simulation/startup.tcl
+	@echo "gtkwave::setZoomFactor -26" >> simulation/startup.tcl
+	@echo "gtkwave::setMarker 55ns" >> simulation/startup.tcl
+	@echo "gtkwave::highlightSignalsFromList top.memctrl_tb.ramcmd\[2:0\]" >> simulation/startup.tcl
+	@echo "set translateFile [ gtkwave::setCurrentTranslateFile ramCmd.txt ]" >> simulation/startup.tcl
+	@echo "gtkwave::installFileFilter \$$translateFile" >> simulation/startup.tcl
+	@echo "for { set i 0 } { \$$i <= [ gtkwave::getVisibleNumTraces ] } { incr i } { gtkwave::setTraceHighlightFromIndex \$$i off }" >> simulation/startup.tcl
+	@echo "gtkwave::setLeftJustifySigs on" >> simulation/startup.tcl
+	cat simulation/startup.tcl
+	/usr/local/bin/gtkwave -T simulation/startup.tcl simulation/${MODULE}_tb.ghw
 
 clean: FORCE
 	rm -rf synthesis simulation results.txt

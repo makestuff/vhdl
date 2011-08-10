@@ -1,16 +1,35 @@
-0000
-0100
-1000
-1100
-0001
-0101
-1001
-1101
-0010
-0110
-1010
-1110
-0011
-0111
-1011
-1111
+# Stimulus file for SDRAM controller
+#
+# Line format:
+#
+#         Command: N=NOP, R=READ, W=WRITE
+#        /
+#       /     Word Address (21 downto 0)
+#      /     /
+#     /     /     Data (15 downto 0)
+#    /     /     /
+#   |     /     /    Data (15 downto 0)
+#   |    /     /    /
+#   |   /\    /\   /\
+#   |  /  \  /  \ /  \
+#   O AAAAAA DDDD DDDD
+#
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+R 3FFFFF 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ
+N XXXXXX 0000 ZZZZ

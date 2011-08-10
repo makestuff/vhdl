@@ -22,15 +22,32 @@ use ieee.numeric_std.all;
 package memctrl_pkg is
 	type MCOpType is (
 		MC_NOP,
-		MC_READ,
-		MC_WRITE
+		MC_RD,
+		MC_WR
 	);
 	component memctrl is
+		generic (
+			INIT_COUNT : unsigned(12 downto 0)
+		);
 		port(
-			mcOp_in : in MCOpType;
-			a_in  : in std_logic;
-			b_in  : in std_logic;
-			x_out : out std_logic
+			-- Client interface
+			mcRst_in    : in std_logic;
+			mcClk_in    : in std_logic;
+			mcOp_in     : in MCOpType;
+			mcAddr_in   : in std_logic_vector(21 downto 0);
+			mcData_in   : in std_logic_vector(15 downto 0);
+			mcData_out  : out std_logic_vector(15 downto 0);
+			mcBusy_out  : out std_logic;
+
+			-- SDRAM interface
+			ramRAS_out  : out std_logic;
+			ramCAS_out  : out std_logic;
+			ramWE_out   : out std_logic;
+			ramAddr_out : out std_logic_vector(11 downto 0);
+			ramData_io  : inout std_logic_vector(15 downto 0);
+			ramBank_out : out std_logic_vector(1 downto 0);
+			ramLDQM_out : out std_logic;
+			ramUDQM_out : out std_logic
 		);
 	end component;
 end package;

@@ -17,7 +17,6 @@
 library ieee;
 
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 use work.gate_pkg.all;
 
 entity toplevel is
@@ -29,7 +28,7 @@ entity toplevel is
 	);
 end entity;
  
-architecture behavioural of toplevel is
+architecture structural of toplevel is
 	signal op : Operation;
 begin
 	u1: entity work.gate

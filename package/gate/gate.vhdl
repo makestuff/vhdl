@@ -17,7 +17,6 @@
 library ieee;
 
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 use work.gate_pkg.all;
 
 entity gate is
@@ -29,7 +28,7 @@ entity gate is
 	);
 end entity;
 
-architecture behavioural of gate is
+architecture rtl of gate is
 begin
 	x_out <=
 		a_in or b_in when op_in = OP_OR else

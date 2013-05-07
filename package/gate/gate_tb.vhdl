@@ -35,7 +35,7 @@ architecture behavioural of gate_tb is
 begin
 
 	-- Instantiate the unit under test
-	uut: gate
+	uut: entity work.gate
 		port map(
 			op_in => op,
 			a_in => a,

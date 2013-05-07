@@ -24,12 +24,4 @@ package gate_pkg is
 		OP_AND,
 		OP_OR
 	);
-	component gate is
-		port(
-			op_in : in Operation;
-			a_in  : in std_logic;
-			b_in  : in std_logic;
-			x_out : out std_logic
-		);
-	end component;
 end package;

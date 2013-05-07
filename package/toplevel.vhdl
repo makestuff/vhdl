@@ -32,7 +32,7 @@ end entity;
 architecture behavioural of toplevel is
 	signal op : Operation;
 begin
-	u1: gate
+	u1: entity work.gate
 		port map(
 			op_in => op,
 			a_in => a_in,
